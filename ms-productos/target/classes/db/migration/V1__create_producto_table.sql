@@ -1,0 +1,7 @@
+CREATE TABLE producto (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    sku VARCHAR(50) NOT NULL UNIQUE,
+    precio DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL
+);

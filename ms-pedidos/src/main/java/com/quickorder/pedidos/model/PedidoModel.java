@@ -18,7 +18,7 @@ public class PedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "clienteId", nullable = false)
+    @Column(name = "cliente_id", nullable = false)
     private Long clienteId;
 
     @Column(nullable = false)

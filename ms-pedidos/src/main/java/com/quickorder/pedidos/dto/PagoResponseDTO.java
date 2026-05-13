@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PagoResponseDTO {
-    private Long id;
+    private Long idPago;
     private String estado;
     private String transaccionId;
 }
