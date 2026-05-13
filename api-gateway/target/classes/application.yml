@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: ms-clientes
+          uri: lb://ms-clientes
+          predicates:
+            - Path=/api/v1/clientes/**
+
+        - id: ms-productos
+          uri: lb://ms-productos
+          predicates:
+            - Path=/api/v1/productos/**
+
+        - id: ms-pedidos
+          uri: lb://ms-pedidos
+          predicates:
+            - Path=/api/v1/pedidos/**
+
+        - id: ms-pagos
+          uri: lb://ms-pagos
+          predicates:
+            - Path=/api/v1/pagos/**
+
+        - id: ms-despachos
+          uri: lb://ms-despachos
+          predicates:
+            - Path=/api/v1/despachos/**
+
+        - id: ms-detalle-pedido
+          uri: lb://ms-detalle-pedido
+          predicates:
+            - Path=/api/v1/detalles/**
+
+        - id: ms-notificaciones
+          uri: lb://ms-notificaciones
+          predicates:
+            - Path=/api/v1/notificaciones/**
+
+        - id: ms-inventario
+          uri: lb://ms-inventario
+          predicates:
+            - Path=/api/v1/inventario/**
+
+        - id: ms-reclamos
+          uri: lb://ms-reclamos
+          predicates:
+            - Path=/api/v1/reclamos/**
+
+        - id: ms-usuarios
+          uri: lb://ms-usuarios
+          predicates:
+            - Path=/api/v1/usuarios/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
