@@ -1,47 +1,58 @@
 # QuickOrder360 - Sistema de Microservicios
 
-## 📋 Descripción del Proyecto
+#### Descripción del Proyecto
 
-Sistema de microservicios distribuido diseñado para la gestión integral de un ecommerce, permitiendo administrar clientes, productos, inventario, pedidos, pagos y despachos. Implementa arquitectura basada en patrones modernos y comunicación REST entre servicios independientes.
-
----
-
-## ✅ Requisitos Cumplidos
-
-### Objetivo del Proyecto
-- ✅ Arquitectura distribuida basada en microservicios
-- ✅ Gestión de clientes, productos, inventario, pedidos, pagos y despachos
-- ✅ Patrón CSR (Controller – Service – Repository)
-- ✅ Persistencia real de datos en base de datos relacional
-- ✅ Comunicación REST entre servicios
-
-### Requisitos Técnicos
-- ✅ Uso de Spring Boot
-- ✅ Uso de JPA + Hibernate
-- ✅ Persistencia real en base de datos relacional
-- ✅ Separación por capas utilizando patrón CSR
-- ✅ Uso de JpaRepository
-- ✅ Operaciones CRUD completas implementadas
-- ✅ Validaciones con Bean Validation (@NotNull, @Email, etc.)
-- ✅ ResponseEntity en endpoints REST
-- ✅ Manejo de excepciones mediante ControllerAdvice
-- ✅ Logs con SLF4J
-- ✅ Comunicación entre microservicios mediante REST
-- ✅ Pruebas funcionales en Postman
-- ✅ Repositorio GitHub grupal
-- ✅ README.md con instrucciones de ejecución
-- ✅ Documentación de endpoints
-
-### Flujo del Sistema
-- ✅ El microservicio de Pedidos consulta al de Clientes para validar existencia
-- ✅ Verificación de disponibilidad de productos e inventario
-- ✅ Registro de pedido, detalle del pedido, pago y despacho
+<span style="font-size: 11px;">Sistema de microservicios distribuido diseñado para la gestión integral de un ecommerce con arquitectura escalable. Gestiona clientes, productos, inventario, pedidos, pagos y despachos aplicando patrones de diseño profesionales como CSR (Controller – Service – Repository). Implementa persistencia real de datos en base de datos relacional y comunicación REST entre servicios.</span>
 
 ---
 
-## 🏗️ Arquitectura de Microservicios
+## Requisitos Cumplidos
 
-### Microservicios Implementados
+#### Objetivo del Proyecto
+
+<span style="font-size: 11px;">
+✅ Arquitectura distribuida basada en microservicios
+✅ Gestión de clientes, productos, inventario, pedidos, pagos y despachos
+✅ Patrón CSR (Controller – Service – Repository)
+✅ Persistencia real de datos en base de datos relacional
+✅ Comunicación REST entre servicios
+</span>
+
+#### Requisitos Técnicos Obligatorios
+
+<span style="font-size: 11px;">
+✅ Uso de Spring Boot
+✅ Uso de JPA + Hibernate
+✅ Persistencia real en base de datos relacional
+✅ Separación por capas utilizando patrón CSR
+✅ Uso de JpaRepository
+✅ Operaciones CRUD completas implementadas
+✅ Validaciones con Bean Validation (@NotNull, @Email, @Min, etc.)
+✅ ResponseEntity en endpoints REST
+✅ Manejo de excepciones mediante @ControllerAdvice
+✅ Logs con SLF4J
+✅ Comunicación entre microservicios mediante REST
+✅ Pruebas funcionales usando Postman
+✅ Repositorio GitHub público
+✅ README.md con instrucciones de ejecución
+✅ Documentación de endpoints
+</span>
+
+#### Flujo del Sistema Implementado
+
+<span style="font-size: 11px;">
+✅ El microservicio de Pedidos consulta al de Clientes para validar existencia del cliente
+✅ Verificación de disponibilidad de productos e inventario
+✅ Registro de pedido, detalle del pedido, pago y despacho correspondiente
+</span>
+
+---
+
+## Arquitectura de Microservicios
+
+#### Microservicios Implementados
+
+<span style="font-size: 11px;">
 
 | Microservicio | Puerto | Responsabilidad |
 |---|---|---|
@@ -50,33 +61,38 @@ Sistema de microservicios distribuido diseñado para la gestión integral de un 
 | **ms-pedidos** | 8003 | Gestión de pedidos y detalles |
 | **ms-pagos** | 8004 | Procesamiento de pagos |
 | **ms-despachos** | 8005 | Gestión de despachos |
+| **ms-usuarios** | 8006 | Gestión de usuarios |
+| **ms-notificaciones** | 8007 | Envío de notificaciones |
+| **ms-reclamos** | 8008 | Gestión de reclamos |
+| **ms-inventario** | 8009 | Control de inventario |
+
+</span>
 
 ---
 
-## 🔌 Endpoints por Microservicio
+## Endpoints por Microservicio
 
-### 1. MS-CLIENTES (Puerto 8001)
+#### MS-CLIENTES (Puerto 8001)
 
-#### Obtener todos los clientes
+<span style="font-size: 11px;">
+
+**Obtener todos los clientes**
 ```
 GET /api/clientes
 ```
-- **Respuesta:** Lista de clientes
-- **Status:** 200 OK
+Respuesta: Lista de clientes | Status: 200 OK
 
-#### Obtener cliente por ID
+**Obtener cliente por ID**
 ```
 GET /api/clientes/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Respuesta:** Datos del cliente
-- **Status:** 200 OK | 404 Not Found
+Parámetro: id (Long) | Status: 200 OK | 404 Not Found
 
-#### Crear nuevo cliente
+**Crear nuevo cliente**
 ```
 POST /api/clientes
 ```
-- **Body:**
+Body:
 ```json
 {
   "nombre": "Juan Pérez",
@@ -86,55 +102,49 @@ POST /api/clientes
   "ciudad": "Bogotá"
 }
 ```
-- **Validaciones:** Email válido, nombre no vacío
-- **Status:** 201 Created
+Validaciones: Email válido, nombre no vacío | Status: 201 Created
 
-#### Actualizar cliente
+**Actualizar cliente**
 ```
 PUT /api/clientes/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Body:** Datos a actualizar
-- **Status:** 200 OK | 404 Not Found
+Status: 200 OK | 404 Not Found
 
-#### Eliminar cliente
+**Eliminar cliente**
 ```
 DELETE /api/clientes/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Status:** 204 No Content | 404 Not Found
+Status: 204 No Content | 404 Not Found
 
-#### Validar existencia de cliente
+**Validar existencia de cliente**
 ```
 GET /api/clientes/validar/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Respuesta:** `{ "existe": true/false }`
-- **Status:** 200 OK
+Respuesta: { "existe": true/false } | Status: 200 OK
 
----
+</span>
 
-### 2. MS-CATALOGO (Puerto 8002)
+#### MS-CATALOGO (Puerto 8002)
 
-#### Obtener todos los productos
+<span style="font-size: 11px;">
+
+**Obtener todos los productos**
 ```
 GET /api/productos
 ```
-- **Respuesta:** Lista de productos
-- **Status:** 200 OK
+Status: 200 OK
 
-#### Obtener producto por ID
+**Obtener producto por ID**
 ```
 GET /api/productos/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Status:** 200 OK | 404 Not Found
+Status: 200 OK | 404 Not Found
 
-#### Crear producto
+**Crear producto**
 ```
 POST /api/productos
 ```
-- **Body:**
+Body:
 ```json
 {
   "nombre": "Laptop Dell",
@@ -144,64 +154,61 @@ POST /api/productos
   "stock": 50
 }
 ```
-- **Validaciones:** Precio > 0, stock >= 0
-- **Status:** 201 Created
+Validaciones: Precio > 0, stock >= 0 | Status: 201 Created
 
-#### Actualizar producto
+**Actualizar producto**
 ```
 PUT /api/productos/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Status:** 200 OK | 404 Not Found
+Status: 200 OK | 404 Not Found
 
-#### Eliminar producto
+**Eliminar producto**
 ```
 DELETE /api/productos/{id}
 ```
-- **Status:** 204 No Content | 404 Not Found
+Status: 204 No Content | 404 Not Found
 
-#### Obtener disponibilidad de producto
+**Obtener disponibilidad de producto**
 ```
 GET /api/productos/{id}/disponibilidad
 ```
-- **Parámetro:** `id` (Long)
-- **Respuesta:** `{ "disponible": true/false, "stock": 50 }`
-- **Status:** 200 OK
+Respuesta: { "disponible": true/false, "stock": 50 } | Status: 200 OK
 
-#### Actualizar inventario
+**Actualizar inventario**
 ```
 PATCH /api/productos/{id}/inventario
 ```
-- **Body:**
+Body:
 ```json
 {
   "cantidad": -5
 }
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
----
+</span>
 
-### 3. MS-PEDIDOS (Puerto 8003)
+#### MS-PEDIDOS (Puerto 8003)
 
-#### Obtener todos los pedidos
+<span style="font-size: 11px;">
+
+**Obtener todos los pedidos**
 ```
 GET /api/pedidos
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
-#### Obtener pedido por ID
+**Obtener pedido por ID**
 ```
 GET /api/pedidos/{id}
 ```
-- **Parámetro:** `id` (Long)
-- **Status:** 200 OK | 404 Not Found
+Status: 200 OK | 404 Not Found
 
-#### Crear pedido
+**Crear pedido**
 ```
 POST /api/pedidos
 ```
-- **Body:**
+Body:
 ```json
 {
   "clienteId": 1,
@@ -210,24 +217,19 @@ POST /api/pedidos
   "estado": "PENDIENTE"
 }
 ```
-- **Validaciones:**
-  - Cliente debe existir (consulta a ms-clientes)
-  - Total debe ser > 0
-- **Status:** 201 Created
+Validaciones: Cliente debe existir, Total > 0 | Status: 201 Created
 
-#### Obtener detalles del pedido
+**Obtener detalles del pedido**
 ```
 GET /api/pedidos/{pedidoId}/detalles
 ```
-- **Parámetro:** `pedidoId` (Long)
-- **Respuesta:** Lista de detalles del pedido
-- **Status:** 200 OK
+Status: 200 OK
 
-#### Agregar detalle a pedido
+**Agregar detalle a pedido**
 ```
 POST /api/pedidos/{pedidoId}/detalles
 ```
-- **Body:**
+Body:
 ```json
 {
   "productoId": 1,
@@ -235,52 +237,49 @@ POST /api/pedidos/{pedidoId}/detalles
   "precioUnitario": 1299.99
 }
 ```
-- **Validaciones:**
-  - Producto debe existir
-  - Stock debe ser suficiente (consulta a ms-catalogo)
-  - Se descuenta automáticamente del inventario
-- **Status:** 201 Created
+Validaciones: Producto existe, stock suficiente | Status: 201 Created
 
-#### Actualizar estado de pedido
+**Actualizar estado de pedido**
 ```
 PATCH /api/pedidos/{id}/estado
 ```
-- **Body:**
+Body:
 ```json
 {
   "estado": "CONFIRMADO"
 }
 ```
-- **Estados válidos:** PENDIENTE, CONFIRMADO, EN_PREPARACION, ENVIADO, ENTREGADO, CANCELADO
-- **Status:** 200 OK
+Estados válidos: PENDIENTE, CONFIRMADO, EN_PREPARACION, ENVIADO, ENTREGADO, CANCELADO | Status: 200 OK
 
-#### Obtener pedidos por cliente
+**Obtener pedidos por cliente**
 ```
 GET /api/pedidos/cliente/{clienteId}
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
----
+</span>
 
-### 4. MS-PAGOS (Puerto 8004)
+#### MS-PAGOS (Puerto 8004)
 
-#### Obtener todos los pagos
+<span style="font-size: 11px;">
+
+**Obtener todos los pagos**
 ```
 GET /api/pagos
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
-#### Obtener pago por ID
+**Obtener pago por ID**
 ```
 GET /api/pagos/{id}
 ```
-- **Status:** 200 OK | 404 Not Found
+Status: 200 OK | 404 Not Found
 
-#### Crear pago
+**Crear pago**
 ```
 POST /api/pagos
 ```
-- **Body:**
+Body:
 ```json
 {
   "pedidoId": 1,
@@ -289,53 +288,49 @@ POST /api/pagos
   "referencia": "TXN123456"
 }
 ```
-- **Validaciones:**
-  - Pedido debe existir (consulta a ms-pedidos)
-  - Monto debe ser >= total del pedido
-  - Método de pago válido
-- **Status:** 201 Created
+Validaciones: Pedido existe, Monto >= total del pedido | Status: 201 Created
 
-#### Procesar pago
+**Procesar pago**
 ```
 POST /api/pagos/{id}/procesar
 ```
-- **Validaciones:** Estado = PENDIENTE
-- **Status:** 200 OK | 400 Bad Request
+Validaciones: Estado = PENDIENTE | Status: 200 OK | 400 Bad Request
 
-#### Verificar estado de pago
+**Verificar estado de pago**
 ```
 GET /api/pagos/{id}/estado
 ```
-- **Respuesta:** `{ "estado": "APROBADO", "pedidoId": 1 }`
-- **Status:** 200 OK
+Respuesta: { "estado": "APROBADO", "pedidoId": 1 } | Status: 200 OK
 
-#### Obtener pagos por pedido
+**Obtener pagos por pedido**
 ```
 GET /api/pagos/pedido/{pedidoId}
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
----
+</span>
 
-### 5. MS-DESPACHOS (Puerto 8005)
+#### MS-DESPACHOS (Puerto 8005)
 
-#### Obtener todos los despachos
+<span style="font-size: 11px;">
+
+**Obtener todos los despachos**
 ```
 GET /api/despachos
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
-#### Obtener despacho por ID
+**Obtener despacho por ID**
 ```
 GET /api/despachos/{id}
 ```
-- **Status:** 200 OK | 404 Not Found
+Status: 200 OK | 404 Not Found
 
-#### Crear despacho
+**Crear despacho**
 ```
 POST /api/despachos
 ```
-- **Body:**
+Body:
 ```json
 {
   "pedidoId": 1,
@@ -344,55 +339,59 @@ POST /api/despachos
   "direccionEntrega": "Calle 123 #45-67"
 }
 ```
-- **Validaciones:**
-  - Pedido debe existir
-  - Pago asociado debe estar APROBADO
-  - Pedido debe estar CONFIRMADO
-- **Status:** 201 Created
+Validaciones: Pedido existe, Pago APROBADO, Pedido CONFIRMADO | Status: 201 Created
 
-#### Actualizar estado despacho
+**Actualizar estado despacho**
 ```
 PATCH /api/despachos/{id}/estado
 ```
-- **Body:**
+Body:
 ```json
 {
   "estado": "EN_TRANSITO"
 }
 ```
-- **Estados válidos:** PREPARACION, EN_TRANSITO, ENTREGADO, DEVUELTO
-- **Status:** 200 OK
+Estados válidos: PREPARACION, EN_TRANSITO, ENTREGADO, DEVUELTO | Status: 200 OK
 
-#### Rastrear despacho
+**Rastrear despacho**
 ```
 GET /api/despachos/rastrear/{numeroSeguimiento}
 ```
-- **Status:** 200 OK
+Status: 200 OK
 
-#### Obtener despachos por pedido
+**Obtener despachos por pedido**
 ```
 GET /api/despachos/pedido/{pedidoId}
 ```
-- **Status:** 200 OK
+Status: 200 OK
+
+</span>
 
 ---
 
-## 🚀 Instrucciones de Instalación y Ejecución
+## Instrucciones de Instalación y Ejecución
 
-### Requisitos Previos
-- **Java:** JDK 11 o superior
-- **Maven:** 3.6 o superior
-- **Base de Datos:** MySQL 5.7+ o PostgreSQL 10+
-- **Git:** Última versión
+#### Requisitos Previos
 
-### Paso 1: Clonar el Repositorio
+<span style="font-size: 11px;">
+- Java: JDK 11 o superior
+- Maven: 3.6 o superior
+- Base de Datos: MySQL 5.7+ o PostgreSQL 10+
+- Git: Última versión
+</span>
+
+#### Paso 1: Clonar el Repositorio
+
+<span style="font-size: 11px;">
 ```bash
 git clone https://github.com/MatthiasFlux/Evaluacion_Parcial_2_Microservicios_QuickOrder360.git
 cd Evaluacion_Parcial_2_Microservicios_QuickOrder360
 ```
+</span>
 
-### Paso 2: Configurar Base de Datos
-Crear bases de datos para cada microservicio:
+#### Paso 2: Configurar Base de Datos
+
+<span style="font-size: 11px;">
 ```sql
 CREATE DATABASE db_clientes;
 CREATE DATABASE db_catalogo;
@@ -400,83 +399,11 @@ CREATE DATABASE db_pedidos;
 CREATE DATABASE db_pagos;
 CREATE DATABASE db_despachos;
 ```
+</span>
 
-### Paso 3: Configurar propiedades de cada microservicio
+#### Paso 3: Compilar y Ejecutar cada Microservicio
 
-Editar `application.properties` en cada microservicio:
-
-#### MS-CLIENTES (src/main/resources/application.properties)
-```properties
-server.port=8001
-spring.application.name=ms-clientes
-spring.datasource.url=jdbc:mysql://localhost:3306/db_clientes
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-logging.level.root=INFO
-logging.level.com.quickorder360=DEBUG
-```
-
-#### MS-CATALOGO (src/main/resources/application.properties)
-```properties
-server.port=8002
-spring.application.name=ms-catalogo
-spring.datasource.url=jdbc:mysql://localhost:3306/db_catalogo
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-logging.level.root=INFO
-logging.level.com.quickorder360=DEBUG
-```
-
-#### MS-PEDIDOS (src/main/resources/application.properties)
-```properties
-server.port=8003
-spring.application.name=ms-pedidos
-spring.datasource.url=jdbc:mysql://localhost:3306/db_pedidos
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-ms.clientes.url=http://localhost:8001/api/clientes
-ms.catalogo.url=http://localhost:8002/api/productos
-ms.pagos.url=http://localhost:8004/api/pagos
-logging.level.root=INFO
-logging.level.com.quickorder360=DEBUG
-```
-
-#### MS-PAGOS (src/main/resources/application.properties)
-```properties
-server.port=8004
-spring.application.name=ms-pagos
-spring.datasource.url=jdbc:mysql://localhost:3306/db_pagos
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-ms.pedidos.url=http://localhost:8003/api/pedidos
-logging.level.root=INFO
-logging.level.com.quickorder360=DEBUG
-```
-
-#### MS-DESPACHOS (src/main/resources/application.properties)
-```properties
-server.port=8005
-spring.application.name=ms-despachos
-spring.datasource.url=jdbc:mysql://localhost:3306/db_despachos
-spring.datasource.username=root
-spring.datasource.password=password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
-ms.pedidos.url=http://localhost:8003/api/pedidos
-ms.pagos.url=http://localhost:8004/api/pagos
-logging.level.root=INFO
-logging.level.com.quickorder360=DEBUG
-```
-
-### Paso 4: Compilar cada microservicio
+<span style="font-size: 11px;">
 ```bash
 # MS-Clientes
 cd ms-clientes
@@ -503,168 +430,48 @@ cd ms-despachos
 mvn clean install
 mvn spring-boot:run
 ```
+</span>
 
-### Paso 5: Verificar que los servicios estén funcionando
+#### Paso 4: Verificar que los Servicios Estén Funcionando
+
+<span style="font-size: 11px;">
 ```bash
-# Terminal adicional
-curl http://localhost:8001/api/clientes        # MS-Clientes
-curl http://localhost:8002/api/productos       # MS-Catalogo
-curl http://localhost:8003/api/pedidos         # MS-Pedidos
-curl http://localhost:8004/api/pagos           # MS-Pagos
-curl http://localhost:8005/api/despachos       # MS-Despachos
+curl http://localhost:8001/api/clientes
+curl http://localhost:8002/api/productos
+curl http://localhost:8003/api/pedidos
+curl http://localhost:8004/api/pagos
+curl http://localhost:8005/api/despachos
 ```
+</span>
 
 ---
 
-## 🧪 Pruebas con Postman
+## Reglas de Negocio Implementadas
 
-### Importar Colección
-1. Abrir Postman
-2. Ir a `File → Import`
-3. Seleccionar archivo `QuickOrder360.postman_collection.json`
-
-### Flujo de Prueba Recomendado
-
-#### 1. Crear Cliente
-```
-POST http://localhost:8001/api/clientes
-```
-
-#### 2. Crear Producto
-```
-POST http://localhost:8002/api/productos
-```
-
-#### 3. Crear Pedido
-```
-POST http://localhost:8003/api/pedidos
-```
-
-#### 4. Agregar Detalle al Pedido
-```
-POST http://localhost:8003/api/pedidos/{pedidoId}/detalles
-```
-
-#### 5. Crear Pago
-```
-POST http://localhost:8004/api/pagos
-```
-
-#### 6. Procesar Pago
-```
-POST http://localhost:8004/api/pagos/{pagoId}/procesar
-```
-
-#### 7. Crear Despacho
-```
-POST http://localhost:8005/api/despachos
-```
-
----
-
-## 🏛️ Modelo Relacional
-
-```
-┌─────────────┐
-│   CLIENTES  │
-├─────────────┤
-│ id (PK)     │
-│ nombre      │
-│ email       │
-│ telefono    │
-│ direccion   │
-│ ciudad      │
-└─────────────┘
-         │
-         │ 1:N
-         │
-    ┌────┴─────────────────┐
-    │                      │
-┌───▼───────────┐   ┌──────▼──────────┐
-│    PEDIDOS    │   │  RECLAMOS (*)   │
-├───────────────┤   ├─────────────────┤
-│ id (PK)       │   │ id (PK)         │
-│ clienteId(FK) │   │ pedidoId (FK)   │
-│ fecha         │   │ descripcion     │
-│ total         │   │ estado          │
-│ estado        │   │ fecha_creacion  │
-└───┬───────────┘   └─────────────────┘
-    │
-    │ 1:N
-    │
-    ▼
-┌─────────────────────────┐
-│  DETALLE_PEDIDOS        │
-├─────────────────────────┤
-│ id (PK)                 │
-│ pedidoId (FK)           │
-│ productoId (FK)         │
-│ cantidad                │
-│ precioUnitario          │
-└────┬────────────────────┘
-     │
-     │ N:1
-     │
-     ▼
-┌──────────────────┐
-│    PRODUCTOS     │
-├──────────────────┤
-│ id (PK)          │
-│ nombre           │
-│ descripcion      │
-│ precio           │
-│ categoria        │
-│ stock            │
-└──────────────────┘
-
-┌─────────────┐
-│    PAGOS    │
-├─────────────┤
-│ id (PK)     │
-│ pedidoId(FK)│
-│ monto       │
-│ metodoPago  │
-│ estado      │
-│ fecha       │
-└─────────────┘
-
-┌─────────────────┐
-│   DESPACHOS     │
-├─────────────────┤
-│ id (PK)         │
-│ pedidoId (FK)   │
-│ numeroSeguimiento
-│ transportista   │
-│ estado          │
-│ fechaEnvio      │
-│ direccionEntrega
-└─────────────────┘
-
-(*) Reclamos: Tabla futura para gestión de reclamos asociados a pedidos
-```
-
----
-
-## 📋 Reglas de Negocio Implementadas
+<span style="font-size: 11px;">
 
 ✅ **No se puede crear un pedido si el cliente no existe**
-- Validación en ms-pedidos que consulta a ms-clientes
+Validación en ms-pedidos que consulta a ms-clientes
 
 ✅ **No se puede registrar un pedido sin stock disponible**
-- Validación al agregar detalle de pedido, consulta a ms-catalogo
+Validación al agregar detalle de pedido, consulta a ms-catalogo
 
 ✅ **Un despacho solo puede generarse si el pago fue aprobado**
-- Validación en ms-despachos que verifica estado de pago en ms-pagos
+Validación en ms-despachos que verifica estado de pago en ms-pagos
 
 ✅ **El inventario se descuenta automáticamente al confirmar un pedido**
-- Al agregar detalle, se decrementa stock en ms-catalogo
+Al agregar detalle, se decrementa stock en ms-catalogo
 
 ✅ **El pago no puede ser inferior al total del pedido**
-- Validación en ms-pagos
+Validación en ms-pagos
+
+</span>
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
+
+<span style="font-size: 11px;">
 
 | Tecnología | Versión | Propósito |
 |---|---|---|
@@ -676,102 +483,20 @@ POST http://localhost:8005/api/despachos
 | SLF4J | Latest | Logging |
 | Validation API | 2.0 | Bean Validation |
 | RestTemplate | Spring | Comunicación entre servicios |
-| Postman | Latest | Pruebas funcionales |
+
+</span>
 
 ---
 
-## 📦 Estructura de Carpetas
+## Contacto
 
-```
-Evaluacion_Parcial_2_Microservicios_QuickOrder360/
-├── ms-clientes/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/quickorder360/msclientes/
-│   │   │   │   ├── controller/
-│   │   │   │   ├── service/
-│   │   │   │   ├── repository/
-│   │   │   │   ├── entity/
-│   │   │   │   ├── dto/
-│   │   │   │   └── exception/
-│   │   │   └── resources/application.properties
-│   │   └── test/
-│   └── pom.xml
-├── ms-catalogo/
-│   └── (Estructura similar)
-├── ms-pedidos/
-│   └── (Estructura similar)
-├── ms-pagos/
-│   └── (Estructura similar)
-├── ms-despachos/
-│   └── (Estructura similar)
-├── README.md
-└── QuickOrder360.postman_collection.json
-```
+<span style="font-size: 11px;">
+
+**Desarrollador:** MatthiasFlux
+**Repositorio:** https://github.com/MatthiasFlux/Evaluacion_Parcial_2_Microservicios_QuickOrder360
+
+</span>
 
 ---
 
-## 🔐 Manejo de Excepciones
-
-Todos los microservicios implementan manejo centralizado de excepciones mediante `@ControllerAdvice`:
-
-```java
-@ExceptionHandler(ResourceNotFoundException.class)
-public ResponseEntity<?> handleResourceNotFound(ResourceNotFoundException e) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body(new ErrorResponse("Recurso no encontrado", e.getMessage()));
-}
-
-@ExceptionHandler(BusinessRuleException.class)
-public ResponseEntity<?> handleBusinessRule(BusinessRuleException e) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(new ErrorResponse("Violación de regla de negocio", e.getMessage()));
-}
-```
-
----
-
-## 📊 Logging
-
-Se implementa logging con SLF4J en todos los niveles:
-- **DEBUG:** Operaciones CRUD y validaciones
-- **INFO:** Operaciones importantes y cambios de estado
-- **WARN:** Situaciones anómalas pero controladas
-- **ERROR:** Errores no controlados
-
-Ejemplo:
-```java
-logger.debug("Validando existencia de cliente: {}", clienteId);
-logger.info("Pedido creado exitosamente: {}", pedidoId);
-logger.error("Error al procesar pago", exception);
-```
-
----
-
-## 📞 Contacto y Soporte
-
-- **Desarrollador:** MatthiasFlux
-- **Email:** matthias@quickorder360.com
-- **Repositorio:** https://github.com/MatthiasFlux/Evaluacion_Parcial_2_Microservicios_QuickOrder360
-- **Issues:** Reportar problemas en la sección de Issues del repositorio
-
----
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo. Derechos reservados © 2026.
-
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Para contribuir:
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-**Última actualización:** 11 de Mayo de 2026
+**Última actualización:** 13 de Mayo de 2026
