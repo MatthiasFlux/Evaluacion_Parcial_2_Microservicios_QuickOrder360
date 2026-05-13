@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class DespachoRequestDTO {
     private Long pedidoId;
-    private String direccionDestino;
+    private String direccionEntrega;
 }

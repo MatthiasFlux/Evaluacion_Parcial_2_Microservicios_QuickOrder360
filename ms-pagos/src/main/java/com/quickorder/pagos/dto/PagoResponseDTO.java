@@ -1,10 +1,12 @@
 package com.quickorder.pagos.dto;
 
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Data
 public class PagoResponseDTO {
-    private Long id;
+    private Long idPago;
+    private Long pedidoId;
     private String estado;
-    private String transaccionId;
+    private LocalDateTime fechaPago;
 }

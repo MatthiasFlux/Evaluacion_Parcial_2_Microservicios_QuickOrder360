@@ -1,13 +1,14 @@
 package com.quickorder.despachos.service;
 
 import com.quickorder.despachos.dto.DespachoRequestDTO;
+import com.quickorder.despachos.dto.DespachoResponseDTO;
 import com.quickorder.despachos.model.DespachoModel;
 import com.quickorder.despachos.repository.DespachoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,17 +17,26 @@ public class DespachoService {
 
     private final DespachoRepository despachoRepository;
 
-    public void programarDespacho(DespachoRequestDTO request) {
-        log.info("Programando despacho para el pedido ID: {} hacia la dirección: {}",
-                request.getPedidoId(), request.getDireccionDestino());
+    public DespachoResponseDTO programarDespacho(DespachoRequestDTO request) {
+        log.info("Programando despacho para el pedido: {}", request.getPedidoId());
 
         DespachoModel despacho = new DespachoModel();
         despacho.setPedidoId(request.getPedidoId());
-        despacho.setDireccionDestino(request.getDireccionDestino());
-        despacho.setEstado("PROGRAMADO");
-        despacho.setFechaProgramacion(LocalDateTime.now());
+        despacho.setDireccionEntrega(request.getDireccionEntrega());
+        despacho.setEstado("PREPARANDO");
 
-        despachoRepository.save(despacho);
-        log.info("Despacho programado con éxito.");
+        despacho.setTrackingNumber("TRK-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+
+        DespachoModel despachoGuardado = despachoRepository.save(despacho);
+
+        DespachoResponseDTO response = new DespachoResponseDTO();
+        response.setIdDespacho(despachoGuardado.getId());
+        response.setPedidoId(despachoGuardado.getPedidoId());
+        response.setTrackingNumber(despachoGuardado.getTrackingNumber());
+        response.setEstado(despachoGuardado.getEstado());
+        response.setFechaActualizacion(despachoGuardado.getFechaActualizacion());
+
+        log.info("Despacho {} programado con Tracking: {}", despachoGuardado.getId(), despachoGuardado.getTrackingNumber());
+        return response;
     }
 }

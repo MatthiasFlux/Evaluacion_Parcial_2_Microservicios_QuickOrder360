@@ -1,17 +1,12 @@
 package com.quickorder.despachos.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "despacho")
+@Table(name = "despachos")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class DespachoModel {
 
     @Id
@@ -19,14 +14,21 @@ public class DespachoModel {
     private Long id;
 
     @Column(nullable = false)
-    private Long pedidoId;
-
-    @Column(nullable = false, length = 255)
-    private String direccionDestino;
-
-    @Column(nullable = false, length = 50)
-    private String estado;
+    private Long pedidoId; // Referencia al ms-pedidos
 
     @Column(nullable = false)
-    private LocalDateTime fechaProgramacion;
+    private String direccionEntrega;
+
+    @Column(nullable = false)
+    private String estado; // EJ: PREPARANDO, EN_RUTA, ENTREGADO
+
+    private String trackingNumber; // Número de seguimiento
+
+    private LocalDateTime fechaActualizacion;
+
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        this.fechaActualizacion = LocalDateTime.now();
+    }
 }
