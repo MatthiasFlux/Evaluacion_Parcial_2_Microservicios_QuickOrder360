@@ -29,7 +29,7 @@ public class ClienteController {
     }
 
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<ClienteModel> crear(@Valid @RequestBody ClienteDTO clienteDTO) {
         ClienteModel cliente = new ClienteModel();
         cliente.setRut(clienteDTO.getRut());
@@ -38,6 +38,16 @@ public class ClienteController {
         cliente.setTelefono(clienteDTO.getTelefono());
 
         return new ResponseEntity<>(clienteService.guardar(cliente), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
+        try {
+            clienteService.eliminarCliente(id);
+            return ResponseEntity.ok("Cliente eliminado correctamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 }

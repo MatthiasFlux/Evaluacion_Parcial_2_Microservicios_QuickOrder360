@@ -25,4 +25,12 @@ public class ClienteService {
     public ClienteModel guardar(ClienteModel cliente) {
         return clienteRepository.save(cliente);
     }
+
+    public void eliminarCliente(Long id) {
+        if (!clienteRepository.existsById(id)) {
+            throw new RuntimeException("Cliente no encontrado con id: " + id);
+        }
+        clienteRepository.deleteById(id);
+    }
+
 }
